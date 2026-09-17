@@ -1,0 +1,594 @@
+/* ============================================================
+   秒杀商城 · Shopify-inspired 设计系统
+   依据 DESIGN.md (version: alpha) —— 双画布体系
+     · 暗色电影感轨 (cinematic night)  → 用户端
+     · 浅色奶油交易轨 (transactional)  → 管理端
+   两条轨道共享排版 DNA 与唯一的胶囊按钮语汇，仅在画布极性上分叉。
+   ============================================================ */
+
+:root {
+  /* —— 基础 —— */
+  --primary: #000000;
+  --ink: #000000;
+  --on-primary: #ffffff;
+
+  /* —— 画布 —— */
+  --canvas-night: #0f1117;
+  --canvas-night-elevated: #151822;
+  --canvas-light: #ffffff;
+  --canvas-cream: #fbfbf5;
+  --surface-dark: #1e2c31;
+
+  /* —— 阴影阶梯 —— */
+  --shade-30: #d4d4d8;
+  --shade-40: #a1a1aa;
+  --shade-50: #71717a;
+  --shade-60: #52525b;
+  --shade-70: #3f3f46;
+
+  /* —— 细线 —— */
+  --hairline-light: #e4e4e7;
+  --hairline-dark: #1e2c31;
+
+  /* —— 绿系（仅浅色轨）—— */
+  --aloe: #c1fbd4;
+  --pistachio: #d4f9e0;
+
+  /* —— 冷调链接（暗色轨）—— */
+  --link-cool-1: #9dabad;
+  --link-cool-2: #9797a2;
+  --link-cool-3: #bdbdca;
+  --link-mint: #99b3ad;
+
+  /* —— 圆角 —— */
+  --r-xs: 4px;
+  --r-sm: 5px;
+  --r-md: 8px;
+  --r-lg: 12px;
+  --r-xl: 20px;
+  --r-pill: 9999px;
+
+  /* —— 间距 —— */
+  --s-xxs: 2px;
+  --s-xs: 4px;
+  --s-sm: 8px;
+  --s-md: 12px;
+  --s-lg: 16px;
+  --s-xl: 24px;
+  --s-xxl: 32px;
+  --s-huge: 64px;
+
+  /* —— 字体 —— */
+  --font-display: 'Inter', 'Helvetica Neue', Helvetica, Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --font-body: 'Inter', 'Helvetica Neue', Helvetica, Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* —— 层级（Elevation）—— */
+  --elev-1: 0 1px 2px rgba(255, 255, 255, .05), inset 0 1px 0 rgba(255, 255, 255, .04);
+  --elev-2: 0 0 0 1px rgba(255, 255, 255, .08), 0 1px 3px rgba(0, 0, 0, .3), 0 5px 10px rgba(0, 0, 0, .2);
+  --elev-3: 0 8px 8px rgba(0, 0, 0, .05), 0 4px 4px rgba(0, 0, 0, .05), 0 2px 2px rgba(0, 0, 0, .05), 0 0 0 1px rgba(0, 0, 0, .06);
+  --elev-4: 0 25px 50px -12px rgba(0, 0, 0, .25);
+
+  /* —— Element Plus 主题变量 —— */
+  --el-color-primary: #000000;
+  --el-color-primary-light-3: #3f3f46;
+  --el-color-primary-light-5: #71717a;
+  --el-color-primary-light-7: #a1a1aa;
+  --el-color-primary-light-8: #d4d4d8;
+  --el-color-primary-light-9: #f4f4f5;
+  --el-color-primary-dark-2: #000000;
+  --el-border-radius-base: 8px;
+  --el-font-family: var(--font-body);
+  --el-text-color-primary: #000000;
+  --el-text-color-regular: #3f3f46;
+  --el-border-color: var(--hairline-light);
+  --el-border-color-light: var(--hairline-light);
+  --el-fill-color-blank: #ffffff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  font-feature-settings: "ss03";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--ink);
+  background: var(--canvas-cream);
+  line-height: 1.5;
+  /* 交易浅色轨：纸感柔光晕 */
+  background-image: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+#app {
+  min-height: 100vh;
+}
+
+/* ============================================================
+   排版语汇
+   ============================================================ */
+.display-xxl {
+  font-family: var(--font-display);
+  font-size: 96px;
+  font-weight: 330;
+  line-height: 1.0;
+  letter-spacing: 2.4px;
+  font-variation-settings: "wght" 330;
+}
+
+.display-xl {
+  font-family: var(--font-display);
+  font-size: 70px;
+  font-weight: 330;
+  line-height: 1.0;
+  letter-spacing: 0;
+  font-variation-settings: "wght" 330;
+}
+
+.display-lg {
+  font-family: var(--font-display);
+  font-size: 55px;
+  font-weight: 330;
+  line-height: 1.16;
+  font-variation-settings: "wght" 330;
+}
+
+.display-md {
+  font-family: var(--font-display);
+  font-size: 48px;
+  font-weight: 330;
+  line-height: 1.14;
+  font-variation-settings: "wght" 330;
+}
+
+.heading-xl {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 1.28;
+  letter-spacing: .42px;
+}
+
+.heading-lg {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.14;
+  letter-spacing: .36px;
+}
+
+.heading-md {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: .3px;
+}
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: .72px;
+  text-transform: uppercase;
+}
+
+.caption {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.49;
+  letter-spacing: .28px;
+}
+
+.micro {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: -.13px;
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ============================================================
+   胶囊按钮（品牌唯一形状）
+   ============================================================ */
+.pill {
+  border-radius: var(--r-pill) !important;
+}
+
+.el-button {
+  border-radius: var(--r-pill);
+  font-family: var(--font-body);
+  font-weight: 550;
+  letter-spacing: .2px;
+  transition: background-color .2s ease, border-color .2s ease, color .2s ease, transform .12s ease;
+}
+
+.el-button:not(.is-disabled):active {
+  transform: translateY(1px);
+}
+
+/* 主按钮：实心黑胶囊 */
+.el-button--primary {
+  --el-button-bg-color: #000000;
+  --el-button-border-color: #000000;
+  --el-button-text-color: #ffffff;
+  --el-button-hover-bg-color: var(--shade-70);
+  --el-button-hover-border-color: var(--shade-70);
+  --el-button-hover-text-color: #ffffff;
+  --el-button-active-bg-color: #000000;
+  --el-button-active-border-color: #000000;
+}
+
+/* 危险（关单）：浅色轨用描边胶囊，避免引入第三种色 */
+.el-button--danger {
+  --el-button-bg-color: #000000;
+  --el-button-border-color: #000000;
+  --el-button-text-color: #ffffff;
+  --el-button-hover-bg-color: var(--shade-70);
+  --el-button-hover-border-color: var(--shade-70);
+  --el-button-hover-text-color: #ffffff;
+  --el-button-active-bg-color: #000000;
+}
+
+.el-button--danger.is-plain {
+  --el-button-bg-color: #ffffff;
+  --el-button-border-color: #000000;
+  --el-button-text-color: #000000;
+  --el-button-hover-bg-color: #000000;
+  --el-button-hover-border-color: #000000;
+  --el-button-hover-text-color: #ffffff;
+}
+
+.el-button--warning {
+  --el-button-bg-color: var(--shade-30);
+  --el-button-border-color: var(--shade-30);
+  --el-button-text-color: #000000;
+  --el-button-hover-bg-color: #c7c7cc;
+  --el-button-hover-border-color: #c7c7cc;
+  --el-button-hover-text-color: #000000;
+}
+
+.el-button--info {
+  --el-button-bg-color: var(--shade-30);
+  --el-button-border-color: var(--shade-30);
+  --el-button-text-color: #000000;
+}
+
+.el-button--success {
+  --el-button-bg-color: var(--aloe);
+  --el-button-border-color: var(--aloe);
+  --el-button-text-color: #000000;
+  --el-button-hover-bg-color: #a9f7c2;
+  --el-button-hover-border-color: #a9f7c2;
+}
+
+/* 暗色轨专属：白描边胶囊 */
+.el-button.pill-outline-dark {
+  --el-button-bg-color: transparent;
+  --el-button-border-color: rgba(255, 255, 255, .9);
+  --el-button-text-color: #ffffff;
+  --el-button-hover-bg-color: rgba(255, 255, 255, .12);
+  --el-button-hover-border-color: #ffffff;
+  --el-button-hover-text-color: #ffffff;
+  --el-button-active-bg-color: rgba(255, 255, 255, .2);
+  border-width: 1.5px;
+}
+
+/* 暗色轨专属：实心白胶囊（最高优先级 CTA） */
+.el-button.pill-solid-white {
+  --el-button-bg-color: #ffffff;
+  --el-button-border-color: #ffffff;
+  --el-button-text-color: #000000;
+  --el-button-hover-bg-color: var(--shade-30);
+  --el-button-hover-border-color: var(--shade-30);
+  --el-button-hover-text-color: #000000;
+  --el-button-active-bg-color: #ffffff;
+  font-weight: 600;
+}
+
+/* 暗色轨专属：幽灵文字按钮 */
+.el-button.pill-ghost-dark {
+  --el-button-bg-color: transparent;
+  --el-button-border-color: transparent;
+  --el-button-text-color: rgba(255, 255, 255, .68);
+  --el-button-hover-bg-color: rgba(255, 255, 255, .08);
+  --el-button-hover-border-color: transparent;
+  --el-button-hover-text-color: #ffffff;
+}
+
+/* ============================================================
+   标签 / 胶囊 chip
+   ============================================================ */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 24px;
+  padding: 0 12px;
+  border-radius: var(--r-pill);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .5px;
+  white-space: nowrap;
+  background: var(--shade-30);
+  color: var(--ink);
+}
+
+.tag--ink {
+  background: #000000;
+  color: #ffffff;
+}
+
+.tag--aloe {
+  background: var(--aloe);
+  color: var(--ink);
+}
+
+.tag--pistachio {
+  background: var(--pistachio);
+  color: var(--ink);
+}
+
+.tag--outline {
+  background: transparent;
+  color: var(--ink);
+  box-shadow: inset 0 0 0 1px var(--hairline-light);
+}
+
+.tag--ghost-dark {
+  background: transparent;
+  color: rgba(255, 255, 255, .72);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .28);
+}
+
+.tag--solid-dark {
+  background: #ffffff;
+  color: #000000;
+}
+
+/* ============================================================
+   表面 / 卡片
+   ============================================================ */
+/* 交易浅色轨：层叠微阴影纸感卡（Level 3） */
+.surface-light {
+  background: var(--canvas-light);
+  border-radius: var(--r-lg);
+  box-shadow: var(--elev-3);
+}
+
+/* 薄荷特色卡 */
+.surface-aloe {
+  background: var(--aloe);
+  border-radius: var(--r-lg);
+}
+
+.surface-pistachio {
+  background: var(--pistachio);
+  border-radius: var(--r-lg);
+}
+
+/* 电影感暗色卡（唯一允许的 inset 顶部高光） */
+.surface-cinematic {
+  background: var(--canvas-night-elevated);
+  border-radius: var(--r-lg);
+  box-shadow: var(--elev-1), 0 0 0 1px rgba(255, 255, 255, .06);
+}
+
+/* 全出血影像框 */
+.surface-photo {
+  background: var(--canvas-night);
+  border-radius: var(--r-xl);
+  overflow: hidden;
+}
+
+/* ============================================================
+   Element Plus 组件覆盖（默认走浅色交易轨）
+   ============================================================ */
+.el-card {
+  border: none;
+  border-radius: var(--r-lg);
+  box-shadow: var(--elev-3) !important;
+}
+
+.el-dialog {
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  box-shadow: var(--elev-4);
+  border: 1px solid var(--hairline-light);
+}
+
+.el-dialog__header {
+  margin-right: 0;
+  padding: 22px 24px 4px;
+}
+
+.el-dialog__title {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: .3px;
+}
+
+.el-dialog__body {
+  padding: 14px 24px 8px;
+}
+
+.el-dialog__footer {
+  padding: 12px 24px 22px;
+}
+
+.el-table {
+  --el-table-border-color: var(--hairline-light);
+  --el-table-header-bg-color: var(--canvas-cream);
+  --el-table-header-text-color: var(--shade-50);
+  --el-table-row-hover-bg-color: #fafafa;
+  --el-table-text-color: var(--ink);
+  font-size: 13.5px;
+}
+
+.el-table th.el-table__cell {
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: .72px;
+  text-transform: uppercase;
+  padding: 14px 0;
+}
+
+.el-table td.el-table__cell {
+  padding: 13px 0;
+}
+
+.el-table--border .el-table__cell {
+  border-right: none;
+}
+
+.el-input__wrapper,
+.el-textarea__inner {
+  border-radius: var(--r-md);
+  box-shadow: 0 0 0 1px var(--hairline-light) inset;
+}
+
+.el-input__wrapper.is-focus {
+  box-shadow: 0 0 0 1px var(--ink) inset;
+}
+
+.el-input-number {
+  border-radius: var(--r-md);
+}
+
+.el-progress-bar__outer {
+  border-radius: var(--r-pill);
+  background: var(--hairline-light);
+}
+
+.el-progress-bar__inner {
+  border-radius: var(--r-pill);
+  background: #000000;
+}
+
+.el-input__wrapper,
+.el-select__wrapper {
+  border-radius: var(--r-md);
+}
+
+.el-message {
+  border-radius: var(--r-pill);
+  border: 1px solid var(--hairline-light);
+  box-shadow: var(--elev-4);
+}
+
+.el-message-box {
+  border-radius: var(--r-xl);
+}
+
+.el-pagination.is-background .el-pager li.is-active {
+  background: #000000;
+}
+
+.el-pagination.is-background .el-pager li,
+.el-pagination.is-background .btn-prev,
+.el-pagination.is-background .btn-next {
+  border-radius: var(--r-pill);
+}
+
+.el-empty__description p {
+  color: var(--shade-50);
+  font-size: 13px;
+}
+
+.el-loading-mask {
+  background-color: rgba(251, 251, 245, .72);
+}
+
+/* ============================================================
+   滚动条
+   ============================================================ */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--shade-30);
+  border-radius: var(--r-pill);
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--shade-40);
+  background-clip: content-box;
+}
+
+/* ============================================================
+   动效（克制）
+   ============================================================ */
+@keyframes riseIn {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+
+.rise-in {
+  animation: riseIn .55s cubic-bezier(.2, .7, .3, 1) both;
+}
+
+.page-enter-active,
+.page-leave-active {
+  transition: opacity .22s ease, transform .22s ease;
+}
+
+.page-enter-from {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.page-leave-to {
+  opacity: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity .25s;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+/* ============================================================
+   响应式：display 阶梯塌缩 96 → 70 → 55 → 48 → 36
+   ============================================================ */
+@media (max-width: 1080px) {
+  .display-xxl { font-size: 70px; letter-spacing: 1.6px; }
+  .display-xl { font-size: 55px; }
+}
+
+@media (max-width: 768px) {
+  .display-xxl { font-size: 55px; letter-spacing: 1px; }
+  .display-xl { font-size: 44px; }
+  .display-lg { font-size: 40px; }
+  .display-md { font-size: 36px; }
+}
