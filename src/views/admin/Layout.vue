@@ -1,38 +1,57 @@
 <template>
-  <div class="admin">
-    <!-- 侧栏（浅色交易轨） -->
+  <div class="admin-shell">
     <aside class="sidebar">
-      <div class="logo">
-        <span class="logo-mark">秒</span>
-        <div class="logo-text">
-          <span class="logo-name">管理后台</span>
-          <span class="logo-sub">Admin Console</span>
+      <div class="brand-block">
+        <div class="brand-mark">秒</div>
+        <div class="brand-copy">
+          <strong>秒杀商城</strong>
+          <span>ADMIN CONSOLE</span>
         </div>
       </div>
 
+      <div class="workspace-label">OPERATIONS</div>
       <el-menu :default-active="$route.path" router class="admin-menu">
         <el-menu-item index="/admin/activities">
+          <span class="menu-index">01</span>
           <el-icon><Goods /></el-icon>
           <span>场次管理</span>
         </el-menu-item>
         <el-menu-item index="/admin/orders">
+          <span class="menu-index">02</span>
           <el-icon><Document /></el-icon>
           <span>订单管理</span>
         </el-menu-item>
       </el-menu>
 
-      <div class="side-foot">
-        <a class="back-link" @click="$router.push('/seckill')">← 返回用户端</a>
-        <div class="status">
-          <span class="dot"></span> 服务运行中
+      <div class="sidebar-bottom">
+        <div class="service-card">
+          <div class="service-dot"></div>
+          <div>
+            <strong>服务运行中</strong>
+            <span>SECKILL API · ONLINE</span>
+          </div>
         </div>
+        <a class="back-link" @click="$router.push('/seckill')">
+          <span>↗</span>
+          返回用户端
+        </a>
       </div>
     </aside>
 
-    <!-- 内容 -->
-    <div class="main">
+    <main class="main">
+      <div class="topbar">
+        <div class="topbar-path">
+          <span>SECKILL MALL</span>
+          <i>/</i>
+          <strong>{{ $route.path.includes('orders') ? 'ORDERS' : 'ACTIVITIES' }}</strong>
+        </div>
+        <div class="topbar-meta">
+          <span class="live-dot"></span>
+          <span>实时数据</span>
+        </div>
+      </div>
       <router-view />
-    </div>
+    </main>
   </div>
 </template>
 
@@ -40,139 +59,290 @@
 </script>
 
 <style scoped>
-.admin {
+.admin-shell {
+  --admin-ink: #141414;
+  --admin-muted: #7d7d78;
+  --admin-soft: #a7a79f;
+  --admin-line: rgba(20, 20, 20, .08);
+  --admin-card: #ffffff;
+  --admin-canvas: #f4f2ed;
   display: flex;
   min-height: 100vh;
-  background: var(--canvas-cream);
+  background: var(--admin-canvas);
+  color: var(--admin-ink);
 }
 
 .sidebar {
-  width: 236px;
-  flex: none;
-  display: flex;
-  flex-direction: column;
-  background: var(--canvas-light);
-  border-right: 1px solid var(--hairline-light);
   position: sticky;
   top: 0;
+  width: 248px;
   height: 100vh;
-}
-
-.logo {
-  height: 76px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 0 22px;
-  border-bottom: 1px solid var(--hairline-light);
-}
-
-.logo-mark {
-  width: 34px;
-  height: 34px;
-  border-radius: var(--r-pill);
-  display: grid;
-  place-items: center;
-  background: #000000;
-  color: #ffffff;
-  font-weight: 700;
-  font-size: 15px;
-}
-
-.logo-text {
+  flex: 0 0 248px;
   display: flex;
   flex-direction: column;
-  line-height: 1.12;
+  background: #171717;
+  color: #fff;
+  overflow: hidden;
 }
 
-.logo-name {
-  font-size: 15px;
-  font-weight: 550;
-  letter-spacing: .4px;
-  color: var(--ink);
+.sidebar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 10% 10%, rgba(255,255,255,.08), transparent 30%),
+    linear-gradient(180deg, rgba(255,255,255,.025), transparent 45%);
 }
 
-.logo-sub {
+.brand-block,
+.workspace-label,
+.admin-menu,
+.sidebar-bottom {
+  position: relative;
+  z-index: 1;
+}
+
+.brand-block {
+  height: 92px;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 0 22px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+.brand-mark {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: #fff;
+  color: #171717;
+  font-size: 16px;
+  font-weight: 750;
+  box-shadow: 0 10px 30px rgba(0,0,0,.2);
+}
+
+.brand-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.brand-copy strong {
+  font-size: 14px;
+  font-weight: 650;
+  letter-spacing: .2px;
+}
+
+.brand-copy span {
+  font-family: var(--font-mono);
   font-size: 9px;
-  letter-spacing: 2.2px;
-  text-transform: uppercase;
-  color: var(--shade-50);
+  letter-spacing: 1.8px;
+  color: rgba(255,255,255,.42);
+}
+
+.workspace-label {
+  padding: 25px 24px 10px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,.32);
 }
 
 .admin-menu {
+  flex: 1;
+  padding: 0 12px;
   border-right: none;
   background: transparent;
-  flex: 1;
-  padding: 16px 0;
   --el-menu-bg-color: transparent;
-  --el-menu-text-color: var(--shade-50);
-  --el-menu-hover-bg-color: rgba(0, 0, 0, .04);
-  --el-menu-active-color: #ffffff;
+  --el-menu-text-color: rgba(255,255,255,.58);
+  --el-menu-hover-bg-color: rgba(255,255,255,.06);
+  --el-menu-active-color: #fff;
 }
 
 .admin-menu :deep(.el-menu-item) {
-  margin: 4px 14px;
-  height: 44px;
-  border-radius: var(--r-pill);
+  height: 54px;
+  margin: 5px 0;
+  padding: 0 13px !important;
+  border-radius: 12px;
+  gap: 10px;
+  font-size: 13.5px;
   font-weight: 550;
-  font-size: 14px;
-  transition: all .2s ease;
+  transition: background .2s ease, color .2s ease, transform .2s ease;
 }
 
 .admin-menu :deep(.el-menu-item:hover) {
-  color: var(--ink);
+  color: #fff;
 }
 
 .admin-menu :deep(.el-menu-item.is-active) {
-  background: #000000;
-  color: #ffffff;
+  background: rgba(255,255,255,.1);
+  color: #fff;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.06);
 }
 
-.side-foot {
-  padding: 18px 22px 22px;
-  border-top: 1px solid var(--hairline-light);
+.admin-menu :deep(.el-icon) {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+}
+
+.menu-index {
+  width: 22px;
+  flex: 0 0 22px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: rgba(255,255,255,.28);
+}
+
+.admin-menu :deep(.el-menu-item.is-active) .menu-index {
+  color: rgba(255,255,255,.62);
+}
+
+.sidebar-bottom {
+  padding: 16px;
+  border-top: 1px solid rgba(255,255,255,.08);
+}
+
+.service-card {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  gap: 10px;
+  align-items: center;
+  padding: 13px;
+  border: 1px solid rgba(255,255,255,.07);
+  background: rgba(255,255,255,.035);
+  border-radius: 12px;
+}
+
+.service-card strong,
+.service-card span {
+  display: block;
+}
+
+.service-card strong {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255,255,255,.78);
+}
+
+.service-card span {
+  margin-top: 4px;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 1px;
+  color: rgba(255,255,255,.3);
+}
+
+.service-dot,
+.live-dot {
+  width: 7px;
+  height: 7px;
+  flex: 0 0 7px;
+  border-radius: 50%;
+  background: #6fcf7a;
+  box-shadow: 0 0 0 4px rgba(111,207,122,.12);
 }
 
 .back-link {
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--shade-50);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 15px;
+  padding: 0 4px;
+  font-size: 11.5px;
+  color: rgba(255,255,255,.42);
   cursor: pointer;
   transition: color .2s ease;
 }
 
 .back-link:hover {
-  color: var(--ink);
-}
-
-.status {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 11.5px;
-  color: var(--shade-50);
-}
-
-.dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #2fb344;
-  box-shadow: 0 0 0 3px var(--aloe);
+  color: #fff;
 }
 
 .main {
   flex: 1;
   min-width: 0;
-  overflow: auto;
+  background:
+    radial-gradient(circle at 88% 6%, rgba(255,255,255,.72), transparent 25%),
+    var(--admin-canvas);
+}
+
+.topbar {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  border-bottom: 1px solid var(--admin-line);
+  background: rgba(244,242,237,.86);
+  backdrop-filter: blur(16px);
+}
+
+.topbar-path {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 1.2px;
+  color: var(--admin-soft);
+}
+
+.topbar-path strong {
+  color: var(--admin-ink);
+  font-weight: 600;
+}
+
+.topbar-path i {
+  font-style: normal;
+  color: #c9c8c2;
+}
+
+.topbar-meta {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 11px;
+  color: var(--admin-muted);
 }
 
 @media (max-width: 900px) {
-  .sidebar { width: 72px; }
-  .logo-text, .admin-menu :deep(.el-menu-item span), .side-foot { display: none; }
-  .admin-menu :deep(.el-menu-item) { justify-content: center; padding: 0 !important; }
+  .sidebar {
+    width: 74px;
+    flex-basis: 74px;
+  }
+
+  .brand-block {
+    justify-content: center;
+    padding: 0;
+  }
+
+  .brand-copy,
+  .workspace-label,
+  .menu-index,
+  .sidebar-bottom {
+    display: none;
+  }
+
+  .admin-menu {
+    padding: 10px;
+  }
+
+  .admin-menu :deep(.el-menu-item) {
+    justify-content: center;
+    padding: 0 !important;
+  }
+
+  .topbar {
+    padding: 0 22px;
+  }
+
+  .topbar-path span,
+  .topbar-path i {
+    display: none;
+  }
 }
 </style>
